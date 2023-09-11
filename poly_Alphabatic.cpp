@@ -3,6 +3,7 @@ using namespace std;
 #include<string.h>
 
 vector<int>ct;
+vector<int>dct;
 
 
  encription(string msg,string key)
@@ -45,6 +46,14 @@ decription(string msg,string key)
     int len1=msg.length();
     int len2=key.length();
 
+    for(int i=0;i<len1;i++)
+    {
+        int x=msg[i]-'A';
+        dct.push_back(x);
+
+        //printf("%c",ct[i]+'A');
+    }
+
     int k[len2],m[len1];
     //string ct;
 
@@ -64,7 +73,7 @@ decription(string msg,string key)
 
     for(int i=0;i<len1;i++)
     {
-        int x=(ct[i]-k[i]+26)%26;//char x = (cipher_text[i] - key[i] + 26) %26;
+        int x=(dct[i]-k[i]+26)%26;
         //ct[i]=x;
 
         printf("%c",x+'a');
@@ -81,6 +90,13 @@ int main(void)
     string key;
     string encripted;
     string decripted;
+    string modkey;
+    int i,j;
+
+    int choice;
+    cout<<"1:encryption   "<<"2:decryption"<<endl;
+    cin>>choice;
+
 
     cout<<"enter your msg:"<<endl;
 
@@ -90,8 +106,28 @@ int main(void)
 
     cin>>key;
 
-    encription(msg,key);
-    decription(msg,key);
+    int msgLen=msg.length();
+    int keyLen=key.length();
+
+    //char modkey[msgLen];
+
+     for(i=0,j=0; i < msgLen;i++,j++ ){
+        if(j == keyLen){j = 0;}
+
+        modkey=modkey+key[j];
+
+
+
+
+    }
+
+
+
+
+
+    if(choice==1)encription(msg,modkey);
+    else if(choice==2)decription(msg,modkey);
+    else cout<<"invalid choice";
 
 
 
